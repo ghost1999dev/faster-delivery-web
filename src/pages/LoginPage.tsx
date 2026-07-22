@@ -1,6 +1,11 @@
 import type React from "react";
+interface LoginPageProps{
+    onNavigateToRegister:()=>void
+}
 
-export const LoginPage: React.FC=()=>{
+export const LoginPage: React.FC<LoginPageProps>=({
+    onNavigateToRegister
+})=>{
     return (
         <div className="min-h-screen flex flex-col bg-white">
             <header className="w-full max-w-7xl mx-auto px-6 py-4 flex items-center justify-between border-b border-slate-100">
@@ -50,6 +55,13 @@ export const LoginPage: React.FC=()=>{
                             <button
                                 className="w-full py-3 px-4 bg-blue-800 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
                             >Loguearse</button>
+                        </div>
+                        <div className="mt-4">
+                             <button
+                                className="w-full py-3 px-4 bg-blue-600 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
+                                onClick={onNavigateToRegister}
+                            >Registro</button>
+
                         </div>
                     </form>
                 </div>
