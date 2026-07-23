@@ -8,13 +8,27 @@ export const LoginPage: React.FC<LoginPageProps>=({
 })=>{
     return (
         <div className="min-h-screen flex flex-col bg-white">
-            <header className="w-full max-w-7xl mx-auto px-6 py-4 flex items-center justify-between border-b border-slate-100">
-                <span>Faster Delivery</span>
-                <nav className="flex items-center gap-2">
-                    <a href="">Inicio</a>
-                    <a href="">Informacion</a>
-                    <a href="">Comunidad</a>
-                </nav>
+            <header className="relative w-full border border-slate-100 bg-white/80">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-8">
+                        <span className="font-bold text-slate-950">Faster Delivery App</span>
+                        <nav className="hidden md:flex items-center gap-8 font-medium text-slate-600">
+                            <a className="hover:text-indigo-600 transition-colors" href="">Explorar</a>
+                            <a className="hover:text-indigo-600 transition-colors" href="">Ofertas</a>
+                            <a className="hover:text-indigo-600 transition-colors" href="">Historia</a>
+                            <a className="hover:text-indigo-600 transition-colors" href="">Ayuda</a>
+                        </nav>
+                    </div>
+                    <div className="flex items-center">
+                        <button 
+                            className="px-5 py-2.5 bg-indigo-700 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold transition-all shadow-sm hover:shadow-indigo-100"
+                            onClick={onNavigateToRegister}
+                        >
+                            Registrarse
+                        </button>
+                    </div>
+                </div>
+                
             </header>
             <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
                 <div className="w-full max-w-md space-y-8">
