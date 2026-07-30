@@ -62,7 +62,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                 className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
                 placeholder="example@gmail.com"
               />
-              <div className="mb-8">
+              <div>
                 <label
                   htmlFor=""
                   className="block text-xs font-semibold uppercase mb-2"
@@ -73,6 +73,19 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   type="text"
                   className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
                   placeholder="Digita tu contrasenia"
+                />
+              </div>
+              <div className="mb-8">
+                <label 
+                  className="block text-xs font-semibold uppercase mb-2"
+                  htmlFor=""
+                >Direccion de envio principal</label>
+
+                <input
+                   type="text" 
+                   className="w-full px-4 py-3 mb-2 border border-slate-200 rounded-lg focus:border-indigo-500 placeholder-slate-400"
+                   placeholder="Ciudad, Provincia, Urbanizacion"
+                   required
                 />
               </div>
               <button className="w-full py-3 px-4 bg-blue-800 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50">
