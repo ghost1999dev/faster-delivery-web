@@ -1,4 +1,5 @@
 import type React from "react";
+import { useLoginViewModel } from "../viewmodels/use-login";
 interface LoginPageProps {
   onNavigateToRegister: () => void;
 }
@@ -6,6 +7,16 @@ interface LoginPageProps {
 export const LoginPage: React.FC<LoginPageProps> = ({
   onNavigateToRegister,
 }) => {
+
+  const {
+    email,
+    password,
+    isLoading,
+    setEmail,
+    setpassword,
+    submit,
+    error
+  }=useLoginViewModel()
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <header className="relative w-full border border-slate-100 bg-white/80">
@@ -45,17 +56,21 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             </h2>
             <p className="mt-2 text-sm">Crear nueva cuenta</p>
           </div>
-          <form action="">
+          <form onSubmit={submit}>
             <input
               type="text"
               className="w-full px-4 py-3 border border-slate-400 rounded-lg"
               placeholder="Usuario o correo"
+              onChange={(e)=>setEmail(e.target.value)}
+              value={email}
               required
             />
             <input
               type="text"
               className="w-full mt-2 mb-4 px-4 py-3 border border-slate-400 rounded-lg"
               placeholder="Contrasenia"
+              onChange={(e)=>setpassword(e.target.value)}
+              value={password}
               required
             />
             <div className="mb-4 flex items-center justify-between">
@@ -77,9 +92,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               </a>
             </div>
             <div>
-              <button className="w-full py-3 px-4 bg-blue-800 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50">
-                Loguearse
+              {error && <p className="mb-3 text-sm text-red-600">{error}</p>}
+              <button 
+                className="w-full py-3 px-4 bg-blue-800 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
+                type="submit"
+              >
+              
+                {isLoading ?"Ingresando":"Iniciar sesion"}
               </button>
+              
             </div>
             
           </form>
