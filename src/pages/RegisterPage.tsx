@@ -1,4 +1,5 @@
 import type React from "react";
+import { useRegisterViewModel } from "../viewmodels/use-register";
 
 interface RegisterPageProps {
   onNavigateToLogin: () => void;
@@ -7,6 +8,16 @@ interface RegisterPageProps {
 export const RegisterPage: React.FC<RegisterPageProps> = ({
   onNavigateToLogin,
 }) => {
+
+  const {
+    form,
+    confirmPassword,
+    setConfirmPassword,
+    isLoading,
+    error,
+    handleChange,
+    submit
+  }=useRegisterViewModel()
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden font-sans">
       <header className="relative w-full border border-slate-100 bg-white/80">
@@ -39,17 +50,34 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                 Crea tu cuenta y disfruta de las promociones recientes
               </p>
             </div>
-            <form action="">
+            <form onSubmit={submit} action="">
               <label
                 htmlFor=""
                 className="block text-xs font-semibold uppercase mb-2"
+                
+
               >
                 Nombre completo
               </label>
               <input
                 type="text"
+                value={form.name}
+                onChange={(e)=>handleChange("name",e.target.value)}
                 className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
                 placeholder="Registra tu nombre"
+              />
+               <label
+                htmlFor=""
+                className="block text-xs font-semibold uppercase mb-2"
+              >
+                Apellido
+              </label>
+              <input
+                type="text"
+                value={form.lastname}
+                onChange={(e)=>handleChange("lastname",e.target.value)}
+                className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
+                placeholder="Registra tu apellido"
               />
               <label
                 htmlFor=""
@@ -59,8 +87,23 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
               </label>
               <input
                 type="text"
+                value={form.email}
+                onChange={(e)=>handleChange("email",e.target.value)}
                 className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
                 placeholder="example@gmail.com"
+              />
+              <label
+                htmlFor=""
+                className="block text-xs font-semibold uppercase mb-2"
+              >
+              Telefono
+              </label>
+              <input
+                value={form.phone}
+                type="text"
+                onChange={(e)=>handleChange("phone",e.target.value)}
+                className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
+                placeholder="7778-8548"
               />
               <div>
                 <label
@@ -70,27 +113,37 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   Contrasenia
                 </label>
                 <input
+                 value={form.password}
                   type="text"
+                  onChange={(e)=>handleChange("password",e.target.value)}
                   className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
                   placeholder="Digita tu contrasenia"
                 />
               </div>
-              <div className="mb-8">
-                <label 
-                  className="block text-xs font-semibold uppercase mb-2"
+              <div>
+                <label
                   htmlFor=""
-                >Direccion de envio principal</label>
-
+                  className="block text-xs font-semibold uppercase mb-2"
+                >
+                  Confirmar Contrasenia
+                </label>
                 <input
-                   type="text" 
-                   className="w-full px-4 py-3 mb-2 border border-slate-200 rounded-lg focus:border-indigo-500 placeholder-slate-400"
-                   placeholder="Ciudad, Provincia, Urbanizacion"
-                   required
+                  type="text"
+                  value={confirmPassword}
+                  onChange={(e)=> setConfirmPassword(e.target.value)}
+                  className="w-full px-4 py-3 mb-2 border border-slate-200 focus:border-indigo-500 rounded-lg placeholder-slate-400"
+                  placeholder="Digita tu contrasenia de confirmacion"
                 />
               </div>
-              <button className="w-full py-3 px-4 bg-blue-800 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50">
-                Crear cuenta
+              
+              <button
+                type="submit" 
+                className="w-full py-3 px-4 bg-blue-800 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50">
+                {isLoading ? "Creando cuenta...":"Crear Cuenta"}
               </button>
+              {error &&(
+                <p className="text-sm text-red-600 font-medium">{error}</p>
+              )}
             </form>
           </div>
         </div>
