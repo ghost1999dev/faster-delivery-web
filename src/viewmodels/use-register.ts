@@ -15,8 +15,7 @@ export function useRegisterViewModel(){
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
-
-
+    const [success, setSuccess] = useState("")
     const handleChange =(field:keyof RegisterPayload,value:string)=>{
         setForm((prev)=>({
             ...prev,
@@ -47,7 +46,7 @@ export function useRegisterViewModel(){
 
     const submit = async(e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
-
+        setSuccess("")
         setError("")
 
         const validationMessage= validate()
@@ -60,10 +59,11 @@ export function useRegisterViewModel(){
 
         try {
             const response = await registerUser(form)
-            console.log(response);
-            
+            console.log("REGISTER RESPONSE",response);
+            setSuccess("Usuario registrado correctamente")
         } catch (error) {
             console.log(error);
+            setError(error instanceof Error ? error.message : "Error al registrare")
             
         }finally{
             setIsLoading(false)
@@ -77,6 +77,7 @@ export function useRegisterViewModel(){
         isLoading,
         error,
         handleChange,
+        success,
         submit
     }
 

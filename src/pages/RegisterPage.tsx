@@ -1,5 +1,6 @@
-import type React from "react";
+import  React, {useEffect} from "react";
 import { useRegisterViewModel } from "../viewmodels/use-register";
+import { toast } from "sonner";
 
 interface RegisterPageProps {
   onNavigateToLogin: () => void;
@@ -16,8 +17,23 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
     isLoading,
     error,
     handleChange,
+    success,
     submit
   }=useRegisterViewModel()
+
+  useEffect(() => {
+    if(error){
+      toast.error(error)
+    }
+  }, [error])
+
+  useEffect(() => {
+    if(success){
+      toast.success(success)
+    }
+  }, [success])
+  
+  
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden font-sans">
       <header className="relative w-full border border-slate-100 bg-white/80">
@@ -141,9 +157,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                 className="w-full py-3 px-4 bg-blue-800 rounded-lg text-white hover:bg-blue-800 hover:shadow-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50">
                 {isLoading ? "Creando cuenta...":"Crear Cuenta"}
               </button>
-              {error &&(
-                <p className="text-sm text-red-600 font-medium">{error}</p>
-              )}
+              
             </form>
           </div>
         </div>
