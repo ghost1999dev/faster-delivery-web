@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginUser } from "../service/user-service";
+import { useAuth } from "../context/useAuth";
 
 export function useLoginViewModel(){
     //declarar los estados
@@ -8,7 +9,7 @@ export function useLoginViewModel(){
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
-
+    const {login}=useAuth()
    // console.log("VALOR EMAIL",email);
     
 
@@ -24,7 +25,7 @@ export function useLoginViewModel(){
         setIsLoading(true)
         try {
             const data = await loginUser({email,password})
-            console.log("TOKEN",data.token);
+            login(data,true)
             
         } catch (error) {
             console.log("ERROR",error);
