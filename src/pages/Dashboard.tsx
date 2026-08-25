@@ -1,26 +1,30 @@
 import type React from "react";
-import { useAuth } from "../context/useAuth";
+
+import { Drawer } from "../components/Drawer";
+import { useState } from "react";
+import { Menu } from "lucide-react";
 
 export const DashboardPage:React.FC=()=>{
-    const {
-        user,
-        token,
-        logout
-    }=useAuth()
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+    
     return(
-        <div className="min-h-screen p-6">
-            <h1 className="text-2xl font-bold">Dashboard</h1>
-            <p>
-                <strong>Token:</strong>{token}
-            </p>
-            <p>
-                <strong>Nombres: </strong>{user?.name} {user?.lastName}
-            </p>
-            <p><strong>Email:</strong>{user?.email}</p>
-            <button
-                className="mt-4 px-4 bg-red-600"
-                onClick={logout}
-            >Cerrar sesion</button>
-        </div>
+       <div className="min-h-screen bg-slate-50">
+         <Drawer
+            isOpen={isDrawerOpen}
+            onClose={()=>setIsDrawerOpen(false)}
+         />
+         <main className="md:ml-0">
+            <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-5">
+              <button
+                type="button"
+                onClick={()=>setIsDrawerOpen(true)}
+                className="m-4 rounded-lg border border-slate-200 p-2 text-slate-700"
+                aria-label="Abrir menu"
+              >
+                <Menu size={20} />
+              </button>  
+            </header>
+         </main>
+       </div>
     )
 }
