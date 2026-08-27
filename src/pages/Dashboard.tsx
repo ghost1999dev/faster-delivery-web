@@ -4,6 +4,8 @@ import { Drawer } from "../components/Drawer";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import { useAuth } from "../context/useAuth";
+import { products } from "../data/products";
+import { ProductCard } from "../components/ProductCard";
 
 export const DashboardPage:React.FC=()=>{
     const {logout,user}= useAuth()
@@ -45,6 +47,12 @@ export const DashboardPage:React.FC=()=>{
                   Descubre los mejores productos para ti,{" "}
                   {user?.name}
                 </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+                {products.map((product)=>(
+                  <ProductCard key={product.id} product={product}/>
+                ))}
               </div>
             </section>
          </main>
