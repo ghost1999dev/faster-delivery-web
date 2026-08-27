@@ -1,13 +1,15 @@
+import { Cake, Coffee, LayoutGrid, Pizza, Salad } from "lucide-react"
+
 interface DrawerProps{
     isOpen: boolean
     onClose:()=>void
 }
 const menuItems=[
-    {label:"All categorias",icon:""},
-    {label:"Fast Food", icon:""},
-    {label:"Healty", icon:""},
-    {label:"Desserts",icon:""},
-    {label:"Beverages",icon:""}
+    {label:"All categorias",icon:LayoutGrid},
+    {label:"Fast Food", icon:Pizza},
+    {label:"Healty", icon:Salad},
+    {label:"Desserts",icon:Cake},
+    {label:"Beverages",icon:Coffee}
 
 ]
 export const Drawer:React.FC<DrawerProps>=({
@@ -46,8 +48,10 @@ export const Drawer:React.FC<DrawerProps>=({
                 <nav className="p-4">
                     <p className="mb-3 text-xs font-bold uppercase text-slate-400">Filters</p>
                     <ul className="space-y-2">
-                        {menuItems.map((item,index)=>(
-                            <li key={item.label}>
+                        {menuItems.map((item,index)=>{
+                            const Icon = item.icon
+                            return(
+                                <li key={item.label}>
                                 <button
                                     type="button"
                                     onClick={onClose}
@@ -60,12 +64,14 @@ export const Drawer:React.FC<DrawerProps>=({
                                         `}
 
                                 >
-                                    <span>{item.icon}</span>
+                                    <Icon size={18}/>
                                     {item.label}
 
                                 </button>
                             </li>
-                        ))}
+                            )
+                            
+                        })}
                     </ul>
                 </nav>
             </aside>
