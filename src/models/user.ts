@@ -12,9 +12,10 @@ export interface Role{
 }
 
 export interface UserResponse{
-    id:string
+    id:number
     email:string
     name:string
+    lastname:string
     lastName:string
     image:string
     phone:string
@@ -25,5 +26,10 @@ export interface UserResponse{
 export interface LoginResponse{
     token:string
     userResponse:UserResponse
+}
+export interface UserRequest{
+    name:string,
+    lastname:string
+    phone:string
 }
 
