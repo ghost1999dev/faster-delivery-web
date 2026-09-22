@@ -2,6 +2,7 @@ import { ArrowLeft, Mail, Phone, UserRound } from "lucide-react"
 import { useAuth } from "../context/useAuth"
 import { PersonalInfo } from "../components/PersonalInfo"
 import { ProfileSidebar } from "../components/ProfileSidebar"
+import { useProfileViewModel } from "../viewmodels/use-profile-user"
 
 interface ProfilePageProps{
     onBackToDashboard:()=>void
@@ -9,6 +10,14 @@ interface ProfilePageProps{
 
 export const ProfilePage=({onBackToDashboard}:ProfilePageProps)=>{
     const {user} = useAuth()
+    const {
+        form,
+        handleChange,
+        submit,
+        isLoading,
+        error,
+        success
+    }=useProfileViewModel()
     const fullName = `${user?.name ?? ""} ${user?.lastName}`.trim()
     return(
         <div className="min-h-screen bg-slate-50 p-4 md:p-8">
@@ -55,7 +64,17 @@ export const ProfilePage=({onBackToDashboard}:ProfilePageProps)=>{
                 </section>
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_1fr]">
                     <ProfileSidebar/>
-                    <PersonalInfo user={user}/>
+                    <PersonalInfo 
+                        user={user}
+                        name={form.name}
+                        lastname={form.lastname}
+                        phone={form.phone}
+                        onChange={handleChange}
+                        onSave={submit}
+                        isLoading={isLoading}
+                        error={error}
+                        success={success}
+                    />
 
                 </div>
             </div>

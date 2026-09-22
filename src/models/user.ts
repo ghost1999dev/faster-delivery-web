@@ -12,10 +12,11 @@ export interface Role{
 }
 
 export interface UserResponse{
-    id:string
+    id:number
     email:string
     name:string
     lastName:string
+    lastname:string
     image:string
     phone:string
     notification_token:string | null
@@ -26,4 +27,8 @@ export interface LoginResponse{
     token:string
     userResponse:UserResponse
 }
-
+export interface UserRequest{
+    name:string
+    lastname:string
+    phone:string
+}
