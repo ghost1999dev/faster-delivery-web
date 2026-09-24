@@ -2,17 +2,9 @@ interface CategoryFormProps{
     onCancel:()=>void
 
 }
-
 export const CategoryForm=({onCancel}:CategoryFormProps)=>{
     return(
-        <div className="space-y-6">
-            <div>
-                <h2 className="text-3xl font-bold text-slate-800">Gestion de Categorias</h2>
-                <p className="mt-1 text-sm text-slate-500">Administra, define y segmenta las opciones de productos para tus restaurantes y clientes</p>
-
-
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden max-w-4xl">
+            <div className=" mt-2 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden max-w-4xl">
                 <div className="border-b border-slate-100 p-6">
                         <h3 className="text-lg font-bold text-slate-800">Crear categoria</h3>
                         <p className="text-xs text-slate-400 mt-1">Define los datos principales de la nueva seccion</p>
@@ -55,6 +47,6 @@ export const CategoryForm=({onCancel}:CategoryFormProps)=>{
 
                 </form>
             </div>
-        </div>
+       
     )
 }
