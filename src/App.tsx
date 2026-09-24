@@ -1,43 +1,47 @@
 
-import { useState } from 'react'
+
 import './App.css'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { useAuth } from './context/useAuth'
 import { DashboardPage } from './pages/Dashboard'
-import { ProfilePage } from './pages/ProfilePage'
-
-type PublicScreen = "login" | "register"
-type PrivateScreen ="dashboard" | "profile"
-
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import { MainLayout } from './components/MainLayout'
+import { CategoriesPage } from './pages/CategoriesPage'
+//GUARDAR LA RUTA PRIVADA
+const ProtectedRoute=()=>{
+  const{isAuthenticated,isHydrated}=useAuth()
+  if(!isHydrated) return null
+  return isAuthenticated ? <Outlet/>: <Navigate to="/login" replace/>
+}
+//GUARDAR LA RUTA PUBLICA
+const PublicRoute=()=>{
+  const{isAuthenticated,isHydrated}=useAuth()
+  if(!isHydrated) return null
+  return !isAuthenticated ? <Outlet/>: <Navigate to="/catalog" replace/>
+}
 
 function App() {
-  //UTILIZAR NUESTRO CONTEXTO
-  const{
-    isAuthenticated
-  }=useAuth()
-  const [publicScreen, setPublicScreen] = useState<PublicScreen>("login")
-  const [privateScreen, setPrivateScreen] = useState<PrivateScreen>("dashboard")
+  return(
+    <BrowserRouter>
+      <Routes>
+        {/**RUTAS PUBLICAS*/}
+        <Route element={<PublicRoute/>}>
+          <Route path='/login' element={<LoginPage onNavigateToRegister={()=>{}}/>}/>
+          <Route path='/register' element={<RegisterPage onNavigateToLogin={()=>{}}/>}/>
+        </Route>
+        <Route element={<ProtectedRoute/>}>
+          <Route element={<MainLayout/>}>
+            <Route path='/' element={<Navigate to="/catalog"/>}/>
+            <Route path='/catalog' element={<DashboardPage/>}/>
+            <Route path='/categories/create' element={<CategoriesPage/>}/>
+          </Route>
 
-  if(!isAuthenticated){
-    if(publicScreen ==="register"){
-      return(
-        <RegisterPage onNavigateToLogin={()=>setPublicScreen('login')}/>
-      )
-    }
-    return(
-      <LoginPage onNavigateToRegister={()=>setPublicScreen("register")}/>
-    )
-  }
-  if(privateScreen === "profile"){
-    return(
-      <ProfilePage onBackToDashboard={()=>setPrivateScreen("dashboard")}/>
-    )
-  }
-
-  return (
-    <DashboardPage onNavigateToProfile={()=>setPrivateScreen("profile")}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
+  
 }
 
 export default App
