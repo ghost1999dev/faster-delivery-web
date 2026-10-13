@@ -1,22 +1,18 @@
-import type React from "react";
-import { useAuth } from "../context/useAuth";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Menu, UserRound } from "lucide-react";
-import { Drawer } from "./Drawer";
+import { Outlet, useNavigate } from "react-router-dom"
+import { useAuth } from "../context/useAuth"
+import { useState } from "react"
+import { Drawer } from "./Drawer"
+import { Menu, UserRound } from "lucide-react"
 
-export const MainLayout: React.FC = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+export const MainLayout=()=>{
+    const {user,logout}= useAuth()
+    const navigate = useNavigate()
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
-  return (
-    <div className="flex min-h-screen bg-slate-50">
-      <Drawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-      />
-      <main className="min-w-0 flex-1">
+    return(
+        <div className="flex min-h-screen bg-slate-50">
+            <Drawer isOpen={isDrawerOpen} onClose={()=>setIsDrawerOpen(false)}/>
+            <main className="min-w-0 flex-1">
         <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-5">
           <button
             type="button"
@@ -32,7 +28,7 @@ export const MainLayout: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={()=> navigate("/profile")}
+              onClick={()=>navigate("/profile")}
               className="flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold hover:bg-slate-100"
             >
               <UserRound size={17} />
@@ -51,6 +47,6 @@ export const MainLayout: React.FC = () => {
             <Outlet/>
         </div>
       </main>
-    </div>
-  );
-};
+        </div>
+    )
+}
